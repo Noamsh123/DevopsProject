@@ -19,12 +19,7 @@ def get_id():
 
 @app.route("/person/<id>", methods=["POST"])
 def add(id):
-    # id_input = id
-    # id = request.form.get("id")
     age = request.form.get("age")
-    # print(age)
-    # age = str(age)
-    # age = float(age)
     age = int(age)
     country = request.form.get("country")
     # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
