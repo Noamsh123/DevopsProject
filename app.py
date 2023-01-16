@@ -10,10 +10,24 @@ app = Flask(__name__)
 @app.route("/person", methods=["GET"])
 def get_id():
     query = dbconnect.run_select(fr"select player_id from active_players;")
+    if len(query) == 0:
+        return abort(404)
     result = {"id": []}
     for item in query:
         result["id"].append(item[0])
     return result
+
+@app.route("/person/<id>", methods=["GET"])
+def get_person(id):
+    query = dbconnect.run_select(fr"select * from active_players where player_id = '{id}';")
+    if len(query) == 0:
+        return abort(404)
+    result = {"id": query[0][0],
+    "age": query[0][1],
+    "country": query[0][2]}
+    return result
+
+
 
 
 
@@ -37,6 +51,11 @@ def update(id):
 
     return "ok"
     
+@app.route("/person/<id>", methods=["DELETE"])
+def delete(id):
+    dbconnect.run_insert_query(fr"DELETE FROM active_players where player_id = '{id}';")
+    return "for now"
+
 
 
 @app.route("/health")
