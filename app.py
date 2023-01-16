@@ -1,11 +1,13 @@
 from flask import Flask, request, abort, jsonify
 from db import dbconnect
-# import mysql.connector
 
-print("hello")
 
 app = Flask(__name__)
-# print(app)
+
+def is_id_exist(id):
+    query = dbconnect.run_select(fr"select player_id from active_players where player_id = '{id}';")    
+    return len(query) != 0
+
 
 @app.route("/person", methods=["GET"])
 def get_id():
@@ -19,40 +21,75 @@ def get_id():
 
 @app.route("/person/<id>", methods=["GET"])
 def get_person(id):
-    query = dbconnect.run_select(fr"select * from active_players where player_id = '{id}';")
-    if len(query) == 0:
+    if not(is_id_exist(id)):
         return abort(404)
+    query = dbconnect.run_select(fr"select * from active_players where player_id = '{id}';")
+    print(query)
     result = {"id": query[0][0],
-    "age": query[0][1],
-    "country": query[0][2]}
+    "firstName": query[0][1],
+    "lastName": query[0][2],
+    "team": query[0][3],
+    "age": query[0][4],
+    "country": query[0][5]}
     return result
-
-
 
 
 
 @app.route("/person/<id>", methods=["POST"])
 def add(id):
+    if is_id_exist(id):
+        return "<h3>id is already exist</h3>"
+
+    first_name = request.form.get("firstName")
+    last_name = request.form.get("lastName")
+    if first_name is None or last_name is None:
+        return "<h3>you must enter last name and first name</h3>"
     age = request.form.get("age")
-    age = int(age)
+    if age is not None:
+        if not(age.isnumeric()):
+            return "<h3>age must be a number</h3>"
+        age = int(age)
+
+    team = request.form.get("team")
     country = request.form.get("country")
-    # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
-    dbconnect.run_insert_query(fr"INSERT INTO active_players (player_id, age, country) VALUES ('{id}', {age}, '{country}');")
+    dbconnect.run_insert_query(fr"INSERT INTO active_players (player_id, first_name, last_name) VALUES ('{id}', '{first_name}', '{last_name}');")
+    if age is not None:
+        dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
+    if team is not None:
+        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
+    if country is not None:
+        dbconnect.update(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
     return "damm"
 
 
 @app.route("/person/<id>", methods=["PUT"])
 def update(id):
+    # checking if id exist
+    if not(is_id_exist(id)):
+        return abort(404)
     age = request.form.get("age")
-    age = int(age)
-    country = request.form.get("country")
-    # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
-    dbconnect.update(fr"UPDATE active_players SET country = '{country}', age = {age} WHERE player_id = '{id}'")
+    team = request.form.get("team")
 
+    if age is None and team is None:
+        return "<h3>must be at least one argument</h3>"
+    elif age is not None and team is not None:
+        if not(age.isnumeric()):
+            return "<h3>age must be a number</h3>"
+        age = int(age)
+        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}', age = {age} WHERE player_id = '{id}'")
+    elif team is None:
+        if not(age.isnumeric()):
+            return "<h3>age must be a number</h3>"
+        age = int(age)
+        dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
+    else:
+        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
     return "ok"
     
 @app.route("/person/<id>", methods=["DELETE"])
 def delete(id):
+    if not(is_id_exist(id)):
+        return abort(404)
     dbconnect.run_insert_query(fr"DELETE FROM active_players where player_id = '{id}';")
     return "for now"
 
@@ -72,56 +109,7 @@ def health():
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
 
-
-
-
-#db connection
-
-# def db_connect():
-#     # global cnx
-#     # global cursor
-#     global mydb
-#     global cursor
-
-#     mydb = mysql.connector.connect(
-#     user="root",
-#     host="localhost",
-#     port = 8082,
-#     password="password"
-#     )   
-
-
-# def DB_INITIALIZATION():
-#     db_connect()
-#     print(" If this is the only message you see while running this file: Data Base is connected and runing")
-#     # cnx.commit()
-#     mydb.close()
-
-
-# def health():
-#     mycursor = mydb.cursor()
-#     mycursor.execute("select 1;")
-#     # run_sql_command("select 1;")
-#     try:
-#         mycursor.execute("select 1;")
-#         print("DB Works and connected")
-#         return '1'
-#     except:
-#         return '0'
-
-# if __name__ == "__main__":
-#     DB_INITIALIZATION()
-#     health()
-
-# @app.route("/health")
-# def health():
-#     res = dbconnection.health()
-#     if res == '1':
-#         return "OK\n"
-#     else:
-#         return '0'
-
-
+# dbconnect.run_insert_query(fr"DELETE FROM active_players;")
 # docker exec -it mydb bash -c 'mysql -u root -ppassword'
 # curl -X POST -F "age=23&country=israel" localhost:5000/person/129
-# DELETE FROM active_players;
+# # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
