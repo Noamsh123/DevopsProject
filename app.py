@@ -1,5 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from db import dbconnect
+import json
 
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ def get_id():
     result = {"id": []}
     for item in query:
         result["id"].append(item[0])
-    return result
+    return jsonify(result)
 
 @app.route("/person/<id>", methods=["GET"])
 def get_person(id):
@@ -31,7 +32,7 @@ def get_person(id):
     "team": query[0][3],
     "age": query[0][4],
     "country": query[0][5]}
-    return result
+    return jsonify(result)
 
 
 
