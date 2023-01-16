@@ -7,11 +7,13 @@ print("hello")
 app = Flask(__name__)
 # print(app)
 
-@app.route("/person/<id>", methods=["GET"])
-def get_id(id):
-    query = dbconnect.run_select(fr"select * from active_players;")
-    print(query)
-    return "ok"
+@app.route("/person", methods=["GET"])
+def get_id():
+    query = dbconnect.run_select(fr"select player_id from active_players;")
+    result = {"id": []}
+    for item in query:
+        result["id"].append(item[0])
+    return result
 
 
 
@@ -25,7 +27,7 @@ def add(id):
     # age = float(age)
     age = int(age)
     country = request.form.get("country")
-    dbconnect.run_insert_query(fr"DELETE FROM active_players;")
+    # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
     dbconnect.run_insert_query(fr"INSERT INTO active_players (player_id, age, country) VALUES ('{id}', {age}, '{country}');")
     return "damm"
 
