@@ -9,3 +9,5 @@ services:
       - ./db/setup:/docker-entrypoint-initdb.d
     ports:
       - 8082:3306
+      # - 8082:8082
+      # - 3306:3306
