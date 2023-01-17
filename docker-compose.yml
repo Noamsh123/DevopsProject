@@ -2,6 +2,9 @@ version: '3.9'
 services:
   mysql:
     image: mysql:latest
+    networks:
+      - app-net
+    # hostname: mydb
     environment:
       MYSQL_ROOT_PASSWORD: "password"
       MYSQL_DATABASE: "mydb"
@@ -9,14 +12,22 @@ services:
       - mysql-vol:/var/lib/mysql
       - ./db/setup:/docker-entrypoint-initdb.d
     ports:
+      # - 8080:8080
       - 8082:3306
       # - 8082:8082
       # - 3306:3306
   app:
     build: .
+    networks:
+      - app-net
     ports:
       - 8081:5000
 
+networks:
+  app-net:
+    name: app-net
+    # Use a custom driver
+    # driver: custom-driver-1
 
 volumes:
   mysql-vol:

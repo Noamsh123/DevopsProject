@@ -2,6 +2,21 @@ import mysql.connector
 
 
 
+# def db_connect():
+#     # global cnx
+#     # global cursor
+#     global mydb
+#     global cursor
+
+#     mydb = mysql.connector.connect(
+#     user="root",
+#     host="localhost",
+#     port = 8082,
+#     password="password"
+#     )   
+#     cursor = mydb.cursor()
+
+
 def db_connect():
     # global cnx
     # global cursor
@@ -10,11 +25,12 @@ def db_connect():
 
     mydb = mysql.connector.connect(
     user="root",
-    host="localhost",
-    port = 8082,
+    host="mysql",
+    port = 3306,
     password="password"
     )   
     cursor = mydb.cursor()
+
 
 
 def DB_INITIALIZATION():
