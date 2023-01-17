@@ -70,21 +70,38 @@ def update(id):
         return abort(404)
     age = request.form.get("age")
     team = request.form.get("team")
-
-    if age is None and team is None:
+    country = request.form.get("country")
+    
+    if age is None and team is None and country is None:
         return "<h3>must be at least one argument</h3>"
-    elif age is not None and team is not None:
+
+    if age is not None:
         if not(age.isnumeric()):
             return "<h3>age must be a number</h3>"
-        age = int(age)
-        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}', age = {age} WHERE player_id = '{id}'")
-    elif team is None:
-        if not(age.isnumeric()):
-            return "<h3>age must be a number</h3>"
-        age = int(age)
+            
         dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
-    else:
+
+    if team is not None:
         dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
+
+    if country is not None:
+        dbconnect.update(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
+
+
+    # if age is None and team is None:
+    #     return "<h3>must be at least one argument</h3>"
+    # elif age is not None and team is not None:
+    #     if not(age.isnumeric()):
+    #         return "<h3>age must be a number</h3>"
+    #     age = int(age)
+    #     dbconnect.update(fr"UPDATE active_players SET current_team = '{team}', age = {age} WHERE player_id = '{id}'")
+    # elif team is None:
+    #     if not(age.isnumeric()):
+    #         return "<h3>age must be a number</h3>"
+    #     age = int(age)
+    #     dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
+    # else:
+    #     dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
     return "ok"
     
 @app.route("/person/<id>", methods=["DELETE"])
