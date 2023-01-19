@@ -15,11 +15,10 @@ RESPONSES+=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 
 # curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 3 18.130.32.203:80/person/1234
 
 
-check=200
 
 for item in "${RESPONSES[@]}"; do
     echo "check"
-    if [[ $item == *"200"* ]]; then
+    if [[ $item != *"200"* ]]; then
         echo "tests faild"
         exit 1
     fi
