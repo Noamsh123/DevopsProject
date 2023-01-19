@@ -1,3 +1,4 @@
 env/
 index.html
 db/__pycache__/dbconnect.cpython-310.pyc
+jenkins/
