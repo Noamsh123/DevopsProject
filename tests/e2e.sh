@@ -17,8 +17,8 @@ RESPONSES+=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 
 
 
 for item in "${RESPONSES[@]}"; do
-    echo "check"
-    if [[ $item != *"200"* ]]; then
+    echo $item
+    if [[ $item != "200" ]]; then
         echo "tests faild"
         exit 1
     fi
