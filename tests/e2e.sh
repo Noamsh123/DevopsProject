@@ -1,27 +1,34 @@
 #!/bin/bash
+ip=18.130.32.203
 declare -a RESPONSES
-# API=( "/person/1234" "/person/1" "" )
-RESPONSES+=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 18.130.32.203:80/person)
-RESPONSES+=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 18.130.32.203:80/person/1)
-RESPONSES+=$(curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 2 18.130.32.203:80/person/1234)
-RESPONSES+=$(curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 2 18.130.32.203:80/person/1234)
-RESPONSES+=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 2 18.131.32.203:80/person/1234)
+API=( "get id" "get person" "post add" "put update" "delete" )
 
+RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person)
+RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person/1)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 2 $ip:80/person/1234)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 2 $ip:80/person/1234)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person/1234)
 
-# curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 18.130.32.203:80/person
-# curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 18.130.32.203:80/person/1
-# curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 3 18.130.32.203:80/person/1234
-# curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 3 18.130.32.203:80/person/1234
-# curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 3 18.130.32.203:80/person/1234
-
-
-
-for item in "${RESPONSES[@]}"; do
-    echo $item
-    if [[ $item != "200" ]]; then
-        echo "tests faild"
-        exit 1
+# ${#RESPONSES[@]}
+declare -a failures
+api_num=5
+for (( i=0;i<$api_num;i++ ))
+do
+    echo ${RESPONSES[$i]}
+    if [[ ${RESPONSES[$i]} != "200" ]]; then
+        failures[${#failures[@]}]=${API[$i]}
+        bol=true
     fi
 done
+
+if [ $bol ]
+then
+    for api in "${failures[@]}"; do
+        echo "the $api faild"    
+     done
+     exit 1
+fi
+
+
 echo "succese"
 exit 0
