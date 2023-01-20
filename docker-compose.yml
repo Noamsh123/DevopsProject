@@ -20,8 +20,8 @@ services:
     image: shamir-repo:latest
     networks:
       - app-net
-    # ports:
-    #   - 8081:5000
+    ports:
+      - 8081:5000
     depends_on:
       - mysql
   
