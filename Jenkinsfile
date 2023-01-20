@@ -9,5 +9,22 @@ pipeline {
                 checkout scm
             }
         }
+
+        stage ('build') {
+            steps{
+                sh "docker build -t shamir-repo ."
+            }
+        }
+
+        stage ('run and test'){
+            steps{
+                sh "docker compose up"
+                sleep 3
+                sh "bash tests/e2e.sh"
+            }
+        }
+
+
+
     }
 }

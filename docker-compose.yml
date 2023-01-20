@@ -17,7 +17,7 @@ services:
       # - 8082:8082
       # - 3306:3306
   app:
-    build: .
+    image: shamir-repo:latest
     networks:
       - app-net
     # ports:
