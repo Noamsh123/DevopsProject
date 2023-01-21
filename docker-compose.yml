@@ -25,20 +25,20 @@ services:
     depends_on:
       - mysql
   
-  # nginx:
-  #   image: nginx
-  #   volumes:
-  #     - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
-  #     # - /var/jenkins_home/workspace/myproject_main/nginx/nginx.conf:/etc/nginx/nginx.conf
-  #   networks:
-  #     - app-net
-  #   ports:
-  #   - "80:80"
-  #   environment:
-  #   - NGINX_HOST=flask-app
-  #   - NGINX_PORT=5000
-  #   depends_on:
-  #     - app
+  nginx:
+    image: nginx
+    volumes:
+      - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      # - /var/jenkins_home/workspace/myproject_main/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-net
+    ports:
+    - "80:80"
+    environment:
+    - NGINX_HOST=flask-app
+    - NGINX_PORT=5000
+    depends_on:
+      - app
 
 networks:
   app-net:

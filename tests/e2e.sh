@@ -3,11 +3,11 @@ ip=35.176.232.30
 declare -a RESPONSES
 API=( "get id" "get person" "post add" "put update" "delete" )
 
-RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:8081/person)
-RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:8081/person/1)
-RESPONSES[${#RESPONSES[@]}]=$(curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 2 $ip:8081/person/1234)
-RESPONSES[${#RESPONSES[@]}]=$(curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 2 $ip:8081/person/1234)
-RESPONSES[${#RESPONSES[@]}]=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:8081/person/1234)
+RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person)
+RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person/1)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 2 $ip:80/person/1234)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 2 $ip:80/person/1234)
+RESPONSES[${#RESPONSES[@]}]=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person/1234)
 
 # ${#RESPONSES[@]}
 declare -a failures
