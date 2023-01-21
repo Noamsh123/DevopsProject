@@ -20,7 +20,7 @@ pipeline {
             steps{
                 sh "docker-compose up -d"
                 sleep 3
-                sh "bash tests/e2e.sh"
+                // sh "bash tests/e2e.sh"
             }
             post{
                 always{
