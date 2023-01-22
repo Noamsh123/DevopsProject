@@ -19,7 +19,7 @@ pipeline {
         stage ('run and test'){
             steps{
                 sh "docker-compose up -d"
-                sleep 7
+                sleep 10
                 sh "bash tests/e2e.sh"
             }
             post{
