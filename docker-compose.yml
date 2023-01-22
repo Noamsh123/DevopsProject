@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   mysql:
-    image: mysql:latest
+    build: mysql/
     networks:
       - app-net
     # hostname: mydb
@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: "mydb"
     volumes:
       - mysql-vol:/var/lib/mysql
-      - ./db/setup:/docker-entrypoint-initdb.d
+      # - ./db/setup:/docker-entrypoint-initdb.d
     ports:
       # - 8080:8080
       - 8082:3306
@@ -26,9 +26,9 @@ services:
       - mysql
   
   nginx:
-    image: nginx
-    volumes:
-      - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
+    build: nginx/
+    # volumes:
+    #   - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
       # - /var/jenkins_home/workspace/myproject_main/nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - app-net
