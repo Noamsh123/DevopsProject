@@ -22,11 +22,11 @@ pipeline {
                 sleep 3
                 sh "bash tests/e2e.sh"
             }
-            post{
-                always{
-                    sh "docker-compose down"
-                }
-            }
+            // post{
+            //     always{
+            //         sh "docker-compose down"
+            //     }
+            // }
         }
 
 
