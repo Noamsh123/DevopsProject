@@ -48,9 +48,7 @@ pipeline {
             steps {
                 sshagent(['e34ee63a-03d1-4b00-af7d-01ef283476ce']) {
                     // sh "ssh ubuntu@13.40.3.145"
-                    sh '''
-                        ssh -T ubuntu@13.40.3.145
-                    '''
+                    sh "ssh -o StrictHostKeyChecking=no -l cloudbees 13.40.3.145 ubuntu -a"
                 }
             }
         }
