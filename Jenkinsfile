@@ -47,7 +47,7 @@ pipeline {
         stage("deploy"){
             steps {
                 sshagent(['27145a1c-51e9-4303-8464-25922b4161ad']) {
-                    sh "echo check"
+                    sh "ssh ubuntu@13.40.3.145"
                 }
             }
         }
