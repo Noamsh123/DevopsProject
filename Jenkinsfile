@@ -1,13 +1,13 @@
 pipeline {
     agent any
-
-    def remote = [:]
-    // remote.name = 'test'
-    remote.host = '13.40.3.145'
-    remote.user = 'ubuntu'
-    // remote.password = 'password'
-    remote.allowAnyHosts = true
-
+    node{
+        def remote = [:]
+        // remote.name = 'test'
+        remote.host = '13.40.3.145'
+        remote.user = 'ubuntu'
+        // remote.password = 'password'
+        remote.allowAnyHosts = true
+    }
 
 
 
