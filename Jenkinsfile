@@ -53,11 +53,11 @@ pipeline {
                 // remote.password = 'password'
                 remote.allowAnyHosts = true
             }
-            stage("deploy"){
-                steps{
-                    sh "echo nice"
-                }
-            }
+            // stage("deploy"){
+            //     steps{
+            //         sh "echo nice"
+            //     }
+            // }
         }
 
 
