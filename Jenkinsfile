@@ -45,25 +45,11 @@ pipeline {
             }
         }
         stage("deploy"){
-
-            def remote = [:]
-            // remote.name = 'test'
-            remote.host = '13.40.3.145'
-            remote.user = 'ubuntu'
-            // remote.password = 'password'
-            remote.allowAnyHosts = true
-
-            steps{
-                sh "echo nice"
+            steps {
+                sshagent(['27145a1c-51e9-4303-8464-25922b4161ad']) {
+                    sh "echo check"
+                }
             }
-            // stage("deploy"){
-            //     steps{
-            //         sh "echo nice"
-            //     }
-            // }
         }
-
-
-
     }
 }
