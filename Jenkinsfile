@@ -45,15 +45,20 @@ pipeline {
             }
         }
         stage("deploy"){
+
+            node{
+                def remote = [:]
+                // remote.name = 'test'
+                remote.host = '13.40.3.145'
+                remote.user = 'ubuntu'
+                // remote.password = 'password'
+                remote.allowAnyHosts = true
+            }
+
+
+
             steps{
-                node{
-                    def remote = [:]
-                    // remote.name = 'test'
-                    remote.host = '13.40.3.145'
-                    remote.user = 'ubuntu'
-                    // remote.password = 'password'
-                    remote.allowAnyHosts = true
-                }
+                sh "echo nice"
             }
             // stage("deploy"){
             //     steps{
