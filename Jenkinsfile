@@ -1,13 +1,5 @@
 pipeline {
     agent any
-    node{
-        def remote = [:]
-        // remote.name = 'test'
-        remote.host = '13.40.3.145'
-        remote.user = 'ubuntu'
-        // remote.password = 'password'
-        remote.allowAnyHosts = true
-    }
 
 
 
@@ -49,6 +41,20 @@ pipeline {
                         sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:1.1.${BUILD_NUMBER}"
                         sh "docker push 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:1.1.${BUILD_NUMBER}"
                     }
+                }
+            }
+        }
+
+        node{
+            def remote = [:]
+            // remote.name = 'test'
+            remote.host = '13.40.3.145'
+            remote.user = 'ubuntu'
+            // remote.password = 'password'
+            remote.allowAnyHosts = true
+            stage("deploy"){
+                steps{
+                    sh "echo nice"
                 }
             }
         }
