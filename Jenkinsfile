@@ -46,12 +46,7 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                script{
-                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
-                        sh "./deploy.sh"
-                    }
-                }
-
+                sh "./deploy.sh ${BUILD_NUMBER}"
             }
         }
     }
