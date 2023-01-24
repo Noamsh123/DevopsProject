@@ -34,6 +34,11 @@ pipeline {
         }
 
         stage ("publish"){
+            when{
+                expression{
+                    return GIT_BRANCH.contains('main')
+                }
+            }
             steps {
                 script{
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
@@ -45,6 +50,11 @@ pipeline {
             }
         }
         stage("deploy"){
+            when{
+                expression{
+                    return GIT_BRANCH.contains('main')
+                }
+            }
             steps {
                 sleep 10
                 sh "./deploy.sh ${BUILD_NUMBER}"
