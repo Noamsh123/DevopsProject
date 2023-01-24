@@ -44,10 +44,10 @@ pipeline {
                 }
             }
         }
-        stage("deploy"){
-            steps {
-                sh "./deploy.sh ${BUILD_NUMBER}"
-            }
-        }
+        // stage("deploy"){
+        //     steps {
+        //         sh "./deploy.sh ${BUILD_NUMBER}"
+        //     }
+        // }
     }
 }
