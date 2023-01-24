@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage ("push to ecr"){
+        stage ("publish"){
             steps {
                 script{
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
@@ -46,10 +46,12 @@ pipeline {
         }
         stage("deploy"){
             steps {
-                sshagent(['e34ee63a-03d1-4b00-af7d-01ef283476ce']) {
-                    // sh "ssh ubuntu@13.40.3.145"
-                    sh "ssh -o StrictHostKeyChecking=no -l cloudbees 13.40.3.145 ubuntu -a"
+                script{
+                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
+                        sh "./deploy.sh"
+                    }
                 }
+
             }
         }
     }
