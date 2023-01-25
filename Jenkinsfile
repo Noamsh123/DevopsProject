@@ -43,8 +43,9 @@ pipeline {
                     // sh '''
                     //     echo ${BUILD_NUMBER} | cut -d '/' -f 2
                     // '''
-                    version=sh (script: "echo $(echo ${GIT_BRANCH} | cut -d '/' -f 2)",
-                    returnStdout: true).trim()
+                    // version=sh (script: "echo $(echo ${GIT_BRANCH} | cut -d '/' -f 2)",
+                    // returnStdout: true).trim()
+                    def version=sh "echo $(echo ${GIT_BRANCH} | cut -d '/' -f 2)"
 
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
                         // sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:latest"
