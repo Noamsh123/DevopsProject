@@ -32,6 +32,30 @@ pipeline {
                 }
             }
         }
+        stage ("publish release"){
+            when{
+                expression{
+                    return GIT_BRANCH.contains('main')
+                }
+            }
+            steps{
+                script{
+                    // sh '''
+                    //     echo ${BUILD_NUMBER} | cut -d '/' -f 2
+                    // '''
+                    version=sh (script: "echo $(echo ${GIT_BRANCH} | cut -d '/' -f 2)",
+                    returnStdout: true).trim()
+
+                    docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
+                        // sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:latest"
+                        sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:${version}.${BUILD_NUMBER}"
+                        sh "docker push 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:${version}.${BUILD_NUMBER}"
+                    }
+                }
+            }
+            
+        }
+
 
         stage ("publish"){
             when{
