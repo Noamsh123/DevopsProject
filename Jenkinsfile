@@ -35,7 +35,7 @@ pipeline {
         stage ("publish release"){
             when{
                 expression{
-                    return GIT_BRANCH.contains('main')
+                    return GIT_BRANCH.contains('release/')
                 }
             }
             steps{
