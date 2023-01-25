@@ -1,7 +1,7 @@
 #!/bin/bash
 ip=18.130.235.172
 declare -a RESPONSES
-API=( "get id" "get person" "post add" "put update" "delete" )
+API=( "post add" "get id" "get person" "put update" "delete" )
 
 RESPONSES[${#RESPONSES[@]}]=$(curl -X POST -s -o /dev/null -w '%{http_code}' -d 'firstName=asdf&lastName=asdfg' --connect-timeout 2 $ip:80/person/1234)
 RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person)
