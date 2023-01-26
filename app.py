@@ -55,11 +55,11 @@ def add(id):
     country = request.form.get("country")
     dbconnect.run_insert_query(fr"INSERT INTO active_players (player_id, first_name, last_name) VALUES ('{id}', '{first_name}', '{last_name}');")
     if age is not None:
-        dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
     if team is not None:
-        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
     if country is not None:
-        dbconnect.update(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
     return "damm"
 
 
@@ -79,13 +79,13 @@ def update(id):
         if not(age.isnumeric()):
             return "<h3>age must be a number</h3>"
             
-        dbconnect.update(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET age = {age} WHERE player_id = '{id}'")
 
     if team is not None:
-        dbconnect.update(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
 
     if country is not None:
-        dbconnect.update(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
+        dbconnect.run_insert_query(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
     
     return "ok"
     
