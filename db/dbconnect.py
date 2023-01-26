@@ -55,16 +55,6 @@ def run_insert_query(command):
     mydb.commit()
     mydb.close()
 
-def update(command):
-    db_connect()
-    cursor.execute("USE players;")
-    cursor.execute(command)
-    mydb.commit()
-    mydb.close()
-
-
-
-
 def health():
     db_connect()
     mycursor = mydb.cursor()
