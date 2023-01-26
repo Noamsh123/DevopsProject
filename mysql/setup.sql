@@ -2,10 +2,6 @@ CREATE DATABASE IF NOT EXISTS `players`;
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `containers-registered`
---
-
 USE players;
 
 
