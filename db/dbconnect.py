@@ -71,5 +71,5 @@ def health():
         return '0'
 
 if __name__ == "__main__":
-    DB_INITIALIZATION()
+    # DB_INITIALIZATION()
     health()
