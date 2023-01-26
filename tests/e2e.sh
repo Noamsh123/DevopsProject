@@ -1,5 +1,5 @@
 #!/bin/bash
-ip=18.132.199.201
+ip=10.0.11.46
 declare -a RESPONSES
 API=( "post add" "get id" "get person" "put update" "delete" )
 
