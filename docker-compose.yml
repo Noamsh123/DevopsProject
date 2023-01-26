@@ -34,9 +34,9 @@ services:
       - app-net
     ports:
     - "80:80"
-    environment:
-    - NGINX_HOST=flask-app
-    - NGINX_PORT=5000
+    # environment:
+    # - NGINX_HOST=flask-app
+    # - NGINX_PORT=5000
     depends_on:
       - app
 
