@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, render_template
 from db import dbconnect
 import json
 
@@ -8,6 +8,11 @@ app = Flask(__name__)
 def is_id_exist(id):
     query = dbconnect.run_select(fr"select player_id from active_players where player_id = '{id}';")    
     return len(query) != 0
+
+
+# @app.route("/")
+# def index():
+#     return render_template("home.html")
 
 
 @app.route("/person", methods=["GET"])
