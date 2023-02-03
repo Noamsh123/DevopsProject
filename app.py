@@ -117,7 +117,5 @@ def health():
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
 
-# dbconnect.run_insert_query(fr"DELETE FROM active_players;")
+
 # docker exec -it mydb bash -c 'mysql -u root -ppassword'
-# curl -X POST -F "age=23&country=israel" localhost:5000/person/129
-# # dbconnect.run_insert_query(fr"DELETE FROM active_players;")
