@@ -1,7 +1,7 @@
 Portfolio
 ===
 
-The Portfolio project is a three tier web application that can query, insert, update, and delete from a database it havaing a ci/cd with multibranch pipeline that build, test, publish and deploy.
+The Portfolio project is a three tier web application that maintaining a database of football players it can query, insert, update, and delete from the db and it have a ci/cd with multibranch pipeline that build, test, publish and deploy.
 
 #### Application Architecture
 The application is comprised of two services:
@@ -20,6 +20,18 @@ The Python Server have 6 APIs that can contact by curl you can see an examples i
 The Python Server connect to the mySQL db with the dbconnect.py
 
 The nginx listen on port 80 and redirect all the request to the Python app that run on port 5000 in the local network
+
+#### APIs
+Get-id allowing to query all the ids in the db.
+
+Get-person allowing to query all data about one person using his id.
+
+Add allowing to add a player to the table.
+
+Update allowing to update some data about a player.
+
+Delete allowing to delete player from the db.
+
 
 #### Building & Running the app
 In order to build the app you will need:
