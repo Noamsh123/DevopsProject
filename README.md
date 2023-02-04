@@ -52,4 +52,4 @@ The ci/cd process including three branches
 
 (2) Release branch build the application test it end to end and calculate a new version and release to ECR(Elastic Container Registry).
 
-(3) Main branch build the application test it end to end publish to ECR and deploy to the prodection server.
+(3) Main branch build the application test it end to end publish to ECR and deploy to the production server.
