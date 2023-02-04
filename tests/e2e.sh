@@ -9,7 +9,6 @@ RESPONSES[${#RESPONSES[@]}]=$(curl -s -o /dev/null -w '%{http_code}' --connect-t
 RESPONSES[${#RESPONSES[@]}]=$(curl -X PUT -s -o /dev/null -w '%{http_code}' -d 'age=25' --connect-timeout 2 $ip:80/person/1234)
 RESPONSES[${#RESPONSES[@]}]=$(curl -X DELETE -s -o /dev/null -w '%{http_code}' --connect-timeout 2 $ip:80/person/1234)
 
-# ${#RESPONSES[@]}
 declare -a failures
 api_num=5
 for (( i=0;i<$api_num;i++ ))

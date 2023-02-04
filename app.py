@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, jsonify, render_template
+from flask import Flask, request, abort, jsonify
 from db import dbconnect
 import json
 
@@ -8,11 +8,6 @@ app = Flask(__name__)
 def is_id_exist(id):
     query = dbconnect.run_select(fr"select player_id from active_players where player_id = '{id}';")    
     return len(query) != 0
-
-
-# @app.route("/")
-# def index():
-#     return render_template("home.html")
 
 
 @app.route("/person", methods=["GET"])
@@ -65,7 +60,7 @@ def add(id):
         dbconnect.run_insert_query(fr"UPDATE active_players SET current_team = '{team}' WHERE player_id = '{id}'")
     if country is not None:
         dbconnect.run_insert_query(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
-    return "damm"
+    return "<h3>post request succesed</h3>"
 
 
 @app.route("/person/<id>", methods=["PUT"])
@@ -92,14 +87,14 @@ def update(id):
     if country is not None:
         dbconnect.run_insert_query(fr"UPDATE active_players SET country = '{country}' WHERE player_id = '{id}'")
     
-    return "ok"
+    return "<h3>put request succesed</h3>"
     
 @app.route("/person/<id>", methods=["DELETE"])
 def delete(id):
     if not(is_id_exist(id)):
         return abort(404)
     dbconnect.run_insert_query(fr"DELETE FROM active_players where player_id = '{id}';")
-    return "for now"
+    return "<h3>delete request succesed</h3>"
 
 
 
@@ -116,6 +111,3 @@ def health():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
-
-
-# docker exec -it mydb bash -c 'mysql -u root -ppassword'

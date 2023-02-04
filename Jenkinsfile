@@ -1,22 +1,17 @@
 pipeline {
     agent any
 
-
-
     stages{
         stage ("checkout") {
             steps{
                 deleteDir()
                 checkout scm
-                // echo ${BUILD_NUMBER}
-                sh "echo ${BUILD_NUMBER}"
             }
         }
 
         stage ('build') {
             steps{
                 sh "docker build -t shamir-repo ."
-                // app = docker.build("shamir-repo")
             }
         }
 
@@ -44,7 +39,6 @@ pipeline {
                     returnStdout: true).trim()
 
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
-                        // sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:latest"
                         sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:${version}.${BUILD_NUMBER}"
                         sh "docker push 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:${version}.${BUILD_NUMBER}"
                     }
@@ -63,7 +57,6 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry("https://644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo","ecr:eu-west-2:my-aws-access"){
-                        // sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:latest"
                         sh "docker tag shamir-repo:latest 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:1.1.${BUILD_NUMBER}"
                         sh "docker push 644435390668.dkr.ecr.eu-west-2.amazonaws.com/shamir-repo:1.1.${BUILD_NUMBER}"
                     }
