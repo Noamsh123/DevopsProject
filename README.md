@@ -4,7 +4,8 @@ Portfolio
 The Portfolio project is a three tier web application that maintaining a database of football players it can query, insert, update, and delete from the db and it have a ci/cd with multibranch pipeline that build, test, publish and deploy.
 
 #### Application Architecture
-The application is comprised of two services:
+The application is comprised of three services:
+
 (1) A mySQL Server which hosts the data and allows to query, insert and modify.
 
 (2) A Python Server that work with flask and serve the data to the nginx
