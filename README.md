@@ -1,7 +1,7 @@
 Portfolio
 ===
 
-The Portfolio project is a three tier web application that maintaining a database of football players it can query, insert, update, and delete from the db and it have a ci/cd with multibranch pipeline that build, test, publish and deploy.
+The Portfolio project is a three tier web application that maintains a database of football players it can query, insert, update, and delete from the db and it have a ci/cd with multibranch pipeline that build, test, publish and deploy.
 
 #### Application Architecture
 The application is comprised of three services:
